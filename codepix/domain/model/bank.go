@@ -8,9 +8,10 @@ import (
 )
 
 type Bank struct {
-	Base `valid:"required"`
-	Code string `json:"code" valid:"notnull"`
-	Name string `json:"name" valid:"notnull"`
+	Base    `valid:"required"`
+	Code    string     `json:"code" valid:"notnull"`
+	Name    string     `json:"name" valid:"notnull"`
+	Account []*Account `valid:"-"`
 }
 
 func (bank *Bank) isValid() error {
