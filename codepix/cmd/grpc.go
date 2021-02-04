@@ -18,6 +18,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/jinzhu/gorm"
 	"github.com/lucaswilliameufrasio/imersao/codepix-go/app/grpc"
 	"github.com/lucaswilliameufrasio/imersao/codepix-go/infra/db"
 	"github.com/spf13/cobra"
@@ -25,13 +26,17 @@ import (
 
 var portNumber int
 
+func StartGrpcServer(database *gorm.DB) {
+	grpc.StartGrpcServer(database, portNumber)
+}
+
 // grpcCmd represents the grpc command
 var grpcCmd = &cobra.Command{
 	Use:   "grpc",
 	Short: "Codepix software is a middleware for bank transactions that use apache kafka and gRPC",
 	Run: func(cmd *cobra.Command, args []string) {
 		database := db.ConnectDB(os.Getenv("env"))
-		grpc.StartGrpcServer(database, portNumber)
+		StartGrpcServer(database)
 	},
 }
 

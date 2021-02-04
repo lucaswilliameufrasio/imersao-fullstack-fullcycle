@@ -19,8 +19,6 @@ import (
 	"os"
 
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
-	"github.com/lucaswilliameufrasio/imersao/codepix-go/app/grpc"
-	"github.com/lucaswilliameufrasio/imersao/codepix-go/app/kafka"
 	"github.com/lucaswilliameufrasio/imersao/codepix-go/infra/db"
 	"github.com/spf13/cobra"
 )
@@ -33,13 +31,10 @@ var allCmd = &cobra.Command{
 	Short: "Run gRPC server and a Kafka Consumer",
 	Run: func(cmd *cobra.Command, args []string) {
 		database := db.ConnectDB(os.Getenv("env"))
-		go grpc.StartGrpcServer(database, portNumber)
+		go StartGrpcServer(database)
 
 		deliveryChan := make(chan ckafka.Event)
-		producer := kafka.NewKafkaProducer()
-		go kafka.DeliveryReport(deliveryChan)
-		kafkaProcessor := kafka.NewKafkaProcessor(database, producer, deliveryChan)
-		kafkaProcessor.Consume()
+		StartKafkaConsumer(database, deliveryChan)
 	},
 }
 
