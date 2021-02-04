@@ -10,10 +10,12 @@ import (
 	"github.com/lucaswilliameufrasio/imersao/codepix-go/app/usecase"
 	"github.com/lucaswilliameufrasio/imersao/codepix-go/infra/repository"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func StartGrpcServer(database *gorm.DB, port int) {
 	grpcServer := grpc.NewServer()
+	reflection.Register(grpcServer)
 
 	pixRepository := repository.PixKeyRepositoryDB{DB: database}
 	pixUseCase := usecase.PixUseCase{PixKeyRepository: pixRepository}
