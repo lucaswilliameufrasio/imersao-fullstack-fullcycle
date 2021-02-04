@@ -22,6 +22,11 @@ attach:
 	docker exec -it codepix_app_1 bash
 .PHONY: attach
 
+## Download all dependencies
+get-deps:
+	$ go get -d ./...
+.PHONY: get-deps
+
 cc-prtfiles:
 	protoc --go_out=app/grpc/pb --go_opt=paths=source_relative --go-grpc_out=app/grpc/pb --go-grpc_opt=paths=source_relative --proto_path=app/grpc/protofiles app/grpc/protofiles/*.proto
 .PHONY: cc-prtfiles
