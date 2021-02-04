@@ -30,7 +30,7 @@ func (t *TransactionUseCase) Register(accountID string, amount float64, pixKeyto
 	}
 
 	t.TransactionRepository.Save(transaction)
-	if transaction.ID != "" {
+	if transaction.Base.ID != "" {
 		return transaction, nil
 	}
 
@@ -85,5 +85,4 @@ func (t *TransactionUseCase) Error(transactionId string, reason string) (*model.
 	}
 
 	return transaction, nil
-
 }
