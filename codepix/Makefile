@@ -6,6 +6,18 @@ down-sudo:
 	sudo docker-compose down
 .PHONY: down-sudo
 
-attach:
+attach-sudo:
 	sudo docker exec -it codepix_app_1 bash
+.PHONY: attach-sudo
+
+up:
+	docker-compose up -d
+.PHONY: up
+
+down:
+	docker-compose down
+.PHONY: down
+
+attach:
+	docker exec -it codepix_app_1 bash
 .PHONY: attach
