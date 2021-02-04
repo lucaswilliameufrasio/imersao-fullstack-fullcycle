@@ -8,8 +8,8 @@ type PixUseCase struct {
 	PixKeyRepository model.PixKeyRepository
 }
 
-func (p *PixUseCase) RegisterKey(key string, kind string, accountId string) (*model.PixKey, error) {
-	account, err := p.PixKeyRepository.FindAccount(accountId)
+func (p *PixUseCase) RegisterKey(key string, kind string, accountID string) (*model.PixKey, error) {
+	account, err := p.PixKeyRepository.FindAccount(accountID)
 	if err != nil {
 		return nil, err
 	}
